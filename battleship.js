@@ -1,40 +1,33 @@
-var model(a) = {
-	boardSize: 7,
-	numShips: 1,
-	shipLength: 2
-	shipsSunk: 0,
-}
-var model(b) = {
-	boardSize: 7,
-	numShips: 1,
-	shipLength: 3
-	shipsSunk: 0,
-}
-var model(c) = {
-	boardSize: 7,
-	numShips: 1,
-	shipLength: 4
-	shipsSunk: 0,
-}
-var model(d) = {
-	boardSize: 7,
-	numShips: 1,
-	shipLength: 5
-	shipsSunk: 0,
-}
-	model(a): [
-		{ locations: [0, 0], hits: ["", ""] }
-	],
+function ships(type, playerGrid, player)	{
+	this.damage = 0;
+	this.type = type;
+	this.playerGrid = playerGrid;
+	this.player = player;
 
-	model(b): [
-		{ locations: [0, 0, 0], hits: ["", "", ""] }
-	],
-
-	model(c): [
-		{ locations: [0, 0, 0, 0], hits: ["", "", "", ""] }
-	],
-
-	model(d): [
+	switch	(this.type)	{
+		case CONST.AVAILABLE_SHIPS[0]:
+			this.shiplength = 2;
+			break;
+			case CONST.AVAILABLE_SHIPS[1]:
+			this.shiplength = 3;
+			break;
+			case CONST.AVAILABLE_SHIPS[2]:
+			this.shiplength = 4;
+			break;
+			case CONST.AVAILABLE_SHIPS[3]:
+			this.shiplength = 5;
+			break;
+			default:
+				this.shipLength = 3;
+				break;
+	}
+	this.maxDamage = this.shipLength;
+	this.sunk = false;
+}
+	ships: [
+		{ locations: [0, 0], hits: ["", ""] },
+		{ locations: [0, 0, 0], hits: ["", "", ""] },
+		{ locations: [0, 0, 0, 0], hits: ["", "", "", ""] },
 		{ locations: [0, 0, 0, 0, 0], hits: ["", "", "", "", ""] }
 	],
 
