@@ -1,13 +1,41 @@
-var model = {
+var model(a) = {
 	boardSize: 7,
-	numShips: 3,
-	shipLength: 3,
+	numShips: 1,
+	shipLength: 2
 	shipsSunk: 0,
-	
-	ships: [
-		{ locations: [0, 0, 0], hits: ["", "", ""] },
-		{ locations: [0, 0, 0], hits: ["", "", ""] },
+}
+var model(b) = {
+	boardSize: 7,
+	numShips: 1,
+	shipLength: 3
+	shipsSunk: 0,
+}
+var model(c) = {
+	boardSize: 7,
+	numShips: 1,
+	shipLength: 4
+	shipsSunk: 0,
+}
+var model(d) = {
+	boardSize: 7,
+	numShips: 1,
+	shipLength: 5
+	shipsSunk: 0,
+}
+	model(a): [
+		{ locations: [0, 0], hits: ["", ""] }
+	],
+
+	model(b): [
 		{ locations: [0, 0, 0], hits: ["", "", ""] }
+	],
+
+	model(c): [
+		{ locations: [0, 0, 0, 0], hits: ["", "", "", ""] }
+	],
+
+	model(d): [
+		{ locations: [0, 0, 0, 0, 0], hits: ["", "", "", "", ""] }
 	],
 
 // original hard-coded values for ship locations
