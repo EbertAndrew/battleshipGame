@@ -166,10 +166,10 @@ function parseGuess(guess) {
 
 // event handlers
 
-function handleFireButton(selectedLocation) {
-	// var guessInput = document.getElementById("guessInput");
-	var guessInput = selectedLocation.toString();
-	var guess = guessInput.value.toUpperCase();
+function handleFireButton() {
+	var guessInput = document.getElementById("guessInput");
+	// var guessInput = document.getElementById(selectedLocation).value; 
+	var guess = guessInput.value;
 
 	controller.processGuess(guess);
 
