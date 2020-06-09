@@ -1,59 +1,25 @@
 var model = {
-	function ships(type, playerGrid, player) {
-		this.damage = 0;
-		this.type = type;
-		this.playerGrid = playerGrid;
-		this.player = player;
-
-		switch (this.type) {
-			case CONST.AVAILABLE_SHIPS[0]:
-				this.shiplength = 2;
-				break;
-			case CONST.AVAILABLE_SHIPS[1]:
-				this.shiplength = 3;
-				break;
-			case CONST.AVAILABLE_SHIPS[2]:
-				this.shiplength = 4;
-				break;
-			case CONST.AVAILABLE_SHIPS[3]:
-				this.shiplength = 5;
-				break;
-			default:
-				this.shipLength = 3;
-				break;
-		}
-		this.maxDamage = this.shipLength;
-		this.sunk = false;
-	};
-	ships: [{
-			locations: [0, 0],
-			hits: ["", ""]
-		},
-		{
-			locations: [0, 0, 0],
-			hits: ["", "", ""]
-		},
-		{
-			locations: [0, 0, 0, 0],
-			hits: ["", "", "", ""]
-		},
-		{
-			locations: [0, 0, 0, 0, 0],
-			hits: ["", "", "", "", ""]
-		}
+	boardSize: 7,
+	numShips: 3,
+	shipLength: 3,
+	shipsSunk: 0,
+	
+	ships: [
+		{ locations: [0, 0, 0], hits: ["", "", ""] },
+		{ locations: [0, 0, 0], hits: ["", "", ""] },
+		{ locations: [0, 0, 0], hits: ["", "", ""] }
 	],
 
-	// original hard-coded values for ship locations
-	/*
-		ships: [
-			{ locations: ["06", "16", "26"], hits: ["", "", ""] },
-			{ locations: ["24", "34", "44"], hits: ["", "", ""] },
-			{ locations: ["10", "11", "12"], hits: ["", "", ""] }
-		],
-	*/
+// original hard-coded values for ship locations
+/*
+	ships: [
+		{ locations: ["06", "16", "26"], hits: ["", "", ""] },
+		{ locations: ["24", "34", "44"], hits: ["", "", ""] },
+		{ locations: ["10", "11", "12"], hits: ["", "", ""] }
+	],
+*/
 
 	fire: function(guess) {
-
 		for (var i = 0; i < this.numShips; i++) {
 			var ship = this.ships[i];
 			var index = ship.locations.indexOf(guess);
@@ -80,16 +46,16 @@ var model = {
 		return false;
 	},
 
-	isSunk : function (ship) {
-		for (var i = 0; i < this.shipLength; i++) {
+	isSunk: function(ship) {
+		for (var i = 0; i < this.shipLength; i++)  {
 			if (ship.hits[i] !== "hit") {
 				return false;
 			}
 		}
-		return true;
-	};
+	    return true;
+	},
 
-	generateShipLocations = function () {
+	generateShipLocations: function() {
 		var locations;
 		for (var i = 0; i < this.numShips; i++) {
 			do {
@@ -99,9 +65,9 @@ var model = {
 		}
 		console.log("Ships array: ");
 		console.log(this.ships);
-	};
+	},
 
-	generateShip = function () {
+	generateShip: function() {
 		var direction = Math.floor(Math.random() * 2);
 		var row, col;
 
@@ -122,9 +88,9 @@ var model = {
 			}
 		}
 		return newShipLocations;
-	}
+	},
 
-	collision = function (locations) {
+	collision: function(locations) {
 		for (var i = 0; i < this.numShips; i++) {
 			var ship = this.ships[i];
 			for (var j = 0; j < locations.length; j++) {
@@ -135,38 +101,38 @@ var model = {
 		}
 		return false;
 	}
+	
+}; 
 
-
-};
 
 var view = {
-	displayMessage: function (msg) {
+	displayMessage: function(msg) {
 		var messageArea = document.getElementById("messageArea");
 		messageArea.innerHTML = msg;
 	},
 
-	displayHit: function (location) {
+	displayHit: function(location) {
 		var cell = document.getElementById(location);
 		cell.setAttribute("class", "hit");
 	},
 
-	displayMiss: function (location) {
+	displayMiss: function(location) {
 		var cell = document.getElementById(location);
 		cell.setAttribute("class", "miss");
 	}
 
-};
+}; 
 
 var controller = {
 	guesses: 0,
 
-	processGuess: function (guess) {
+	processGuess: function(guess) {
 		var location = parseGuess(guess);
 		if (location) {
 			this.guesses++;
 			var hit = model.fire(location);
 			if (hit && model.shipsSunk === model.numShips) {
-				view.displayMessage("You sank all my battleships, in " + this.guesses + " guesses");
+					view.displayMessage("You sank all my battleships, in " + this.guesses + " guesses");
 			}
 		}
 	}
@@ -184,11 +150,11 @@ function parseGuess(guess) {
 		var firstChar = guess.charAt(0);
 		var row = alphabet.indexOf(firstChar);
 		var column = guess.charAt(1);
-
+		
 		if (isNaN(row) || isNaN(column)) {
 			alert("Oops, that isn't on the board.");
 		} else if (row < 0 || row >= model.boardSize ||
-			column < 0 || column >= model.boardSize) {
+		           column < 0 || column >= model.boardSize) {
 			alert("Oops, that's off the board!");
 		} else {
 			return row + column;
@@ -200,8 +166,9 @@ function parseGuess(guess) {
 
 // event handlers
 
-function handleFireButton() {
-	var guessInput = document.getElementById("guessInput");
+function handleFireButton(selectedLocation) {
+	// var guessInput = document.getElementById("guessInput");
+	var guessInput = selectedLocation.toString();
 	var guess = guessInput.value.toUpperCase();
 
 	controller.processGuess(guess);
@@ -237,5 +204,10 @@ function init() {
 	guessInput.onkeypress = handleKeyPress;
 
 	// place the ships on the game board
-	model.generateShipLocations();
+	this.model.generateShipLocations();
 }
+
+
+
+
+
