@@ -168,8 +168,7 @@ function parseGuess(guess) {
 
 function handleFireButton() {
 	var guessInput = document.getElementById("guessInput");
-	// var guessInput = document.getElementById(selectedLocation).value; 
-	var guess = guessInput.value;
+	var guess = guessInput.value.toUpperCase();
 
 	controller.processGuess(guess);
 
@@ -204,10 +203,5 @@ function init() {
 	guessInput.onkeypress = handleKeyPress;
 
 	// place the ships on the game board
-	this.model.generateShipLocations();
+	model.generateShipLocations();
 }
-
-
-
-
-
